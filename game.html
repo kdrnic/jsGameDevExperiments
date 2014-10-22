@@ -14,8 +14,8 @@ added to the array of entities
 	<head>
 		<!-- Base JS -->
 		<script src="base.js"></script>
-		<script src="commonLogic.js"></script>
 		<script src="commonGfx.js"></script>
+		<script src="commonLogic.js"></script>
 		<script src="data.js"></script>
 		<script src="keys.js"></script>
 		<!-- Base JS end -->
@@ -24,11 +24,13 @@ added to the array of entities
 		<script src="projectile.js"></script>
 		<script src="basePlayer.js"></script>
 		<script src="enemy.js"></script>
+		<script src="entrance.js"></script>
 		<!--Base entities JS end-->
 		
 		<!-- drnick's JS -->
 		<script src="jiggawatt.js"></script>
 		<script src="skull.js"></script>
+		<script src="mine.js"></script>
 		<!-- drnick's JS end -->
 		<script>
 function InitGame()
@@ -37,6 +39,7 @@ function InitGame()
 	InitParallax(data["gfx/grass3.jpg"], 0).layer = -1;
 	AddEntity(new Jiggawatt());
 	AddEntity(new Skull());
+	AddEntity(new MineEntrance());
 	
 	/* Do not remove */
 	freeze = false;
