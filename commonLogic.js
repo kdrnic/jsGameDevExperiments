@@ -14,6 +14,14 @@ function InitParallax(img, speed)
 	return obj;
 }
 
+function Parallax(img, spd)
+{
+	this.image = img;
+	this.speed = spd;
+}
+
+Parallax.prototype.Draw = ParallaxDraw;
+
 function AvoidSolids(object)
 {
 	var colliders = [false, false, false, false];
