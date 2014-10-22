@@ -1,38 +1,37 @@
-function InitJigga()
+function Jiggawatt()
 {
-	var j = NewEntity();
-	j.x = j.y = 0;
-	j.width = j.height = 75;
-	j.image = data["gfx/jiggawattOfficial.jpg"];
-	j.Draw = ImageDraw;
-	j.Update = JiggaUpdate;
-	j.speed = 5;
-	j.health = 100;
-	j.Hit = JiggaHit;
-}
-
-function JiggaHit(dmg)
-{
-	this.health -= dmg;
-}
-
-function JiggaUpdate()
-{
-	var dx = 0, dy = 0;
-	if(keys["keyLeft"].state != 0) dx = -1;
-	if(keys["keyRight"].state != 0) dx = 1;
-	if(keys["keyUp"].state != 0) dy = -1;
-	if(keys["keyDown"].state != 0) dy = 1;
-	var dl = Math.sqrt((dx * dx) + (dy * dy));
-	if(dl != 0)
+	this.x = this.y = 0;
+	this.width = this.height = 75;
+	this.image = data["gfx/jiggawattOfficial.jpg"];
+	this.speed = 5;
+	this.health = 100;
+	this.alive = true;
+	
+	this.Draw = ImageDraw;
+	
+	this.Update = function ()
 	{
-		dx *= this.speed / dl;
-		dy *= this.speed / dl;
+		var dx = 0, dy = 0;
+		if(keys["keyLeft"].state != 0) dx = -1;
+		if(keys["keyRight"].state != 0) dx = 1;
+		if(keys["keyUp"].state != 0) dy = -1;
+		if(keys["keyDown"].state != 0) dy = 1;
+		var dl = Math.sqrt((dx * dx) + (dy * dy));
+		if(dl != 0)
+		{
+			dx *= this.speed / dl;
+			dy *= this.speed / dl;
+		}
+		
+		this.x += dx;
+		this.y += dy;
+		AvoidSolids(this);
+	
+		CameraFocusOn(this);
 	}
 	
-	this.x += dx;
-	this.y += dy;
-	AvoidSolids();
-	
-	CameraFocusOn(this);
+	this.Hit = function(dmg)
+	{
+		this.health -= dmg;
+	}
 }
