@@ -83,6 +83,11 @@ function AddEntity(e)
 	entities[entities.length] = e;
 }
 
+function RemoveDeadEntities()
+{
+	entities = entities.filter(function(e){return e.alive});
+}
+
 function ClearEntities()
 {
 	entities = [];
@@ -110,6 +115,7 @@ function UpdateEntities()
 		if(!entity.alive) continue;
 		if(entity.Update) entity.Update();
 	}
+	if(frame % 90 == 0) RemoveDeadEntities();
 }
 
 function Draw()
