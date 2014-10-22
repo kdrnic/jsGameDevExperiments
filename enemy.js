@@ -10,7 +10,7 @@ Enemy.prototype.Hit = function(dmg)
 	this.health -= dmg;
 }
 
-Enemy.IsSolidTo = function(ent)
+Enemy.prototype.IsSolidTo = function(ent)
 {
 	return (ent instanceof Player);
 }
