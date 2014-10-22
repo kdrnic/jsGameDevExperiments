@@ -1,0 +1,54 @@
+<!--
+ADDING CONTENT
+--------------
+	All data that you use must be preloaded, add filename to dataSrcs string in
+data.js
+	Entities in the game are objects in the form "{alive: true, Update:
+function() {}, Draw: function() {}}"
+	To add entities to the game, use the NewObject function, it will return a
+object whose Update and Draw functions you can change, this object is already
+added to the array of entities
+-->
+<html>
+	<head>
+		<!-- Base JS -->
+		<script src="base.js"></script>
+		<script src="commonLogic.js"></script>
+		<script src="commonGfx.js"></script>
+		<script src="data.js"></script>
+		<script src="keys.js"></script>
+		<!-- Base JS end -->
+		
+		<!-- drnick's JS -->
+		<!-- drnick's JS end -->
+		<script>
+function InitGame()
+{
+	/* Add first entities here */
+	InitParallax(data["gfx/grass3.jpg"], 0).layer = -1;
+}
+
+OnMoreData = function()
+{
+	var ratio = 1;
+	if(dataSrcs.length > 0) ratio = (data.length / dataSrcs.length);
+	context.fillStyle = "#000000";
+	context.fillRect(0, 0, 640, 480);
+	context.fillStyle = "#0000FF";
+	context.fillRect(80, 220, 480, 20);
+	context.fillStyle = "#FF0000";
+	context.fillRect(80, 220, 480 * ratio, 20);
+	context.fillText(Math.floor(ratio * 100) + "% loaded", 280, 208);
+	if(data.length == dataSrcs.length) // Loading finished!
+	{
+		InitGame();
+	}
+}
+		</script>
+	</head>
+	<body onload="Start();OnMoreData();">
+		<div class="container">
+			<canvas width="640" height="480" id="canvas" class="gameCanvas"></canvas>
+		</div>
+	</body>
+</html>
