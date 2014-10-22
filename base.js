@@ -71,6 +71,7 @@ function NewEntity()
 
 function AddEntity(e)
 {
+	e.alive = true;
 	for(var i = 0; i < entities.length; i++)
 	{
 		if(!entities[i].alive)
