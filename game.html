@@ -24,6 +24,7 @@ added to the array of entities
 		<script src="projectile.js"></script>
 		<script src="basePlayer.js"></script>
 		<script src="jiggawatt.js"></script>
+		<script src="enemies.js"></script>
 		<!-- drnick's JS end -->
 		<script>
 function InitGame()
@@ -31,6 +32,7 @@ function InitGame()
 	/* Add first entities here */
 	InitParallax(data["gfx/grass3.jpg"], 0).layer = -1;
 	AddEntity(new Jiggawatt());
+	AddEntity(new Skull());
 	
 	/* Do not remove */
 	freeze = false;
