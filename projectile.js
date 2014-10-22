@@ -4,9 +4,9 @@ function Projectile()
 
 Projectile.prototype.Update = function()
 {
-	if((this.frameDeath) && (frame == this.frameDeath))
+	if((this.frameDeath) && (frame >= this.frameDeath))
 	{
-		alive = false;
+		this.alive = false;
 		return;
 	}
 	this.x += this.dx;
