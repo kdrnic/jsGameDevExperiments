@@ -84,6 +84,7 @@ function DoFrame()
 
 function Update()
 {
+	UpdateKeys();
 	if(!freeze) UpdateEntities();
 }
 

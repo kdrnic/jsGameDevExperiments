@@ -3,7 +3,9 @@ var keys = {};
 var keyConfig =
 [
 	"keyLeft", 37, "Move left",
-	"keyRight", 39, "Move right"
+	"keyRight", 39, "Move right",
+	"keyUp", 38, "Move up",
+	"keyDown", 40, "Move down"
 ];
 
 function UpdateKeys()

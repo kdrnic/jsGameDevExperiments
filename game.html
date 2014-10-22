@@ -20,12 +20,17 @@ added to the array of entities
 		<!-- Base JS end -->
 		
 		<!-- drnick's JS -->
+		<script src="jiggawatt.js"></script>
 		<!-- drnick's JS end -->
 		<script>
 function InitGame()
 {
 	/* Add first entities here */
 	InitParallax(data["gfx/grass3.jpg"], 0).layer = -1;
+	InitJigga();
+	
+	/* Do not remove */
+	freeze = false;
 }
 
 OnMoreData = function()
