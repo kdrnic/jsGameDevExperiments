@@ -2,6 +2,8 @@ function Projectile()
 {
 }
 
+Projectile.prototype.layer = 2;
+
 Projectile.prototype.Update = function()
 {
 	if((this.frameDeath) && (frame >= this.frameDeath))

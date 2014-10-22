@@ -128,6 +128,14 @@ function CompareLayers(a, b)
 	var layerA = 0, layerB = 0;
 	if(a.layer) layerA = a.layer;
 	if(b.layer) layerB = b.layer;
+	if(b.zSorting)
+	{
+		if((a.y) && (a.height))
+		{
+			if(a.y + a.height * 0.5 < b.y + b.zHeight * 0.5) layerB = b.zBottomLayer;
+			else layerB = b.zTopLayer;
+		}
+	}
 	return layerA - layerB;
 }
 
