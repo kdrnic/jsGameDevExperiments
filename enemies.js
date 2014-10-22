@@ -11,6 +11,8 @@ Enemy.prototype.Hit = function(dmg)
 
 function SkullProjectile()
 {
+	this.width = this.height = 8;
+	
 	this.image = data["gfx/fireball.png"];
 	this.frameWidth = 20;
 	this.animLength = 10;
