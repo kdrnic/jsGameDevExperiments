@@ -60,6 +60,12 @@ function SpriteDraw()
 	DrawSprite(this);
 }
 
+function SpriteDraw2()
+{
+	this.frame = Math.floor(frame / this.iAnimSpeed) % this.animLength;
+	DrawSprite(this);
+}
+
 function DrawParallax(image, speed)
 {
 	if(!speed) speed = 1.0;
