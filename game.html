@@ -1,14 +1,14 @@
 <!--
 ADDING CONTENT
 --------------
-	All data that you use must be preloaded, add filename to dataSrcs string in
-data.js
+	All data that you use must be preloaded, add filename to dataSrcs array
+(defined in data.js), do not add in data.js but instead put
+"dataSrcs.push('filename.ext')" in your own files near where you use said
+files.
 	Entities in the game are objects in the form "{alive: true, Update:
-function() {}, Draw: function() {}}"
-	To add entities to the game, use the NewObject function, it will return a
-object whose Update and Draw functions you can change, this object is already
-added to the array of entities
-	You can also create your own entity object and call AddEntity
+function() {}, Draw: function() {}}".
+	To add entities to the game, use the AddEntity function. It will also set
+the "alive" property to true.
 -->
 <html>
 	<head>

@@ -1,3 +1,5 @@
+dataSrcs.push("gfx/jiggawattOfficial.jpg");
+
 function Jiggawatt()
 {
 	this.x = this.y = 0;

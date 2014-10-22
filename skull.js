@@ -1,3 +1,6 @@
+dataSrcs.push("gfx/fireball.png");
+dataSrcs.push("gfx/skull.png");
+
 function SkullProjectile()
 {
 	this.width = this.height = 8;

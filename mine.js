@@ -1,3 +1,7 @@
+dataSrcs.push("gfx/mineEntrance.png");
+dataSrcs.push("gfx/rails.png");
+dataSrcs.push("gfx/dirt1.gif");
+
 function MineEntrance()
 {
 	this.x = 500 - Math.random() * 1000;

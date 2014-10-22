@@ -3,13 +3,7 @@ var dataSrcs =
 [
 	"gfx/grass1.png",
 	"gfx/grass2.jpg",
-	"gfx/grass3.jpg",
-	"gfx/jiggawattOfficial.jpg",
-	"gfx/skull.png",
-	"gfx/fireball.png",
-	"gfx/mineEntrance.png",
-	"gfx/rails.png",
-	"gfx/dirt1.gif"
+	"gfx/grass3.jpg"
 ];
 var data = {};
 
