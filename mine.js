@@ -1,6 +1,7 @@
 dataSrcs.push("gfx/mineEntrance.png");
 dataSrcs.push("gfx/rails.png");
 dataSrcs.push("gfx/dirt1.gif");
+for(var i = 1; i <= 3; i++) dataSrcs.push("gfx/rock" + i + ".png");
 
 function MineEntrance()
 {
@@ -32,4 +33,21 @@ MineEntrance.prototype.SpawnWorld = function()
 		layer: -1
 	};
 	AddEntity(rails);
+	
+	for(var i = 0; i < 45; i++)
+	{
+		var image = data["gfx/rock" + Math.ceil(Math.random() * 3) + ".png"];
+		var rock =
+		{
+			Draw: ImageDraw,
+			image: image,
+			width: image.width,
+			height: image.height,
+			x: 1450 - Math.random() * 2900,
+			y: 1450 - Math.random() * 2900,
+			layer: 0,
+			IsSolidTo: AlwaysReturnTrue
+		};
+		AddEntity(rock);
+	}
 }
