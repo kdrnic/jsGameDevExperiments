@@ -133,7 +133,7 @@ function CompareLayers(a, b)
 
 function DrawEntities()
 {
-	if(frames % 10 == 0) entities.sort(CompareLayers); // Sorts every 10 frames for greater speed
+	if(frame % 10 == 0) entities.sort(CompareLayers); // Sorts every 10 frames for greater speed
 	for(var i = 0; i < entities.length; i++)
 	{
 		var object = entities[i];
