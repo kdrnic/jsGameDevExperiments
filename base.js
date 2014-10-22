@@ -69,6 +69,19 @@ function NewEntity()
 	return entities[entities.length - 1];
 }
 
+function AddEntity(e)
+{
+	for(var i = 0; i < entities.length; i++)
+	{
+		if(!entities[i].alive)
+		{
+			entities[i] = e;
+			return;
+		}
+	}
+	entities[entities.length] = e;
+}
+
 function ClearEntities()
 {
 	entities = [];
