@@ -10,6 +10,8 @@ function Jiggawatt()
 	this.Draw = ImageDraw;
 }
 
+Jiggawatt.prototype = new Player();
+
 Jiggawatt.prototype.Update = function ()
 {
 	var dx = 0, dy = 0;
@@ -29,9 +31,4 @@ Jiggawatt.prototype.Update = function ()
 	AvoidSolids(this);
 
 	CameraFocusOn(this);
-}
-
-Jiggawatt.prototype.Hit = function(dmg)
-{
-	this.health -= dmg;
 }
