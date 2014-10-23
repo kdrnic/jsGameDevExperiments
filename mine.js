@@ -1,23 +1,9 @@
-dataSrcs.push("gfx/mineEntrance.png");
 dataSrcs.push("gfx/rails.png");
 dataSrcs.push("gfx/dirt1.gif");
 for(var i = 1; i <= 3; i++) dataSrcs.push("gfx/rock" + i + ".png");
 dataSrcs.push("gfx/caveWall.png");
 
-function MineEntrance()
-{
-	this.x = 500 - Math.random() * 1000;
-	this.y = 500 - Math.random() * 1000;
-	this.width = 120;
-	this.height = 105;
-	this.image = data["gfx/mineEntrance.png"];
-	
-	this.Draw = ImageDraw;
-}
-
-MineEntrance.prototype = new Entrance();
-
-MineEntrance.prototype.SpawnWorld = function()
+function SpawnMine()
 {
 	var ground = new Parallax(data["gfx/dirt1.gif"], 0);
 	ground.layer = -3;
@@ -104,3 +90,20 @@ MineEntrance.prototype.SpawnWorld = function()
 	};
 	AddEntity(wallEast);
 }
+
+dataSrcs.push("gfx/mineEntrance.png");
+
+function MineEntrance()
+{
+	this.x = 500 - Math.random() * 1000;
+	this.y = 500 - Math.random() * 1000;
+	this.width = 120;
+	this.height = 105;
+	this.image = data["gfx/mineEntrance.png"];
+	
+	this.Draw = ImageDraw;
+}
+
+MineEntrance.prototype = new Entrance();
+
+MineEntrance.prototype.SpawnWorld = SpawnMine;
