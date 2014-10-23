@@ -2,6 +2,7 @@ dataSrcs.push("gfx/mineEntrance.png");
 dataSrcs.push("gfx/rails.png");
 dataSrcs.push("gfx/dirt1.gif");
 for(var i = 1; i <= 3; i++) dataSrcs.push("gfx/rock" + i + ".png");
+dataSrcs.push("gfx/caveWall.png");
 
 function MineEntrance()
 {
@@ -19,7 +20,7 @@ MineEntrance.prototype = new Entrance();
 MineEntrance.prototype.SpawnWorld = function()
 {
 	var ground = new Parallax(data["gfx/dirt1.gif"], 0);
-	ground.layer = -2;
+	ground.layer = -3;
 	AddEntity(ground);
 	
 	var rails =
@@ -30,7 +31,7 @@ MineEntrance.prototype.SpawnWorld = function()
 		height: 3000,
 		x: 0,
 		y: 0,
-		layer: -1
+		layer: -2
 	};
 	AddEntity(rails);
 	
@@ -50,4 +51,56 @@ MineEntrance.prototype.SpawnWorld = function()
 		};
 		AddEntity(rock);
 	}
+	
+	var wallSouth =
+	{
+		Draw: TiledDraw2,
+		image: data["gfx/caveWall.png"],
+		width: 3000,
+		height: 100,
+		x: 0,
+		y: 1450,
+		layer: -1,
+		IsSolidTo: AlwaysReturnTrue
+	};
+	AddEntity(wallSouth);
+	
+	var wallNorth =
+	{
+		Draw: TiledDraw2,
+		image: data["gfx/caveWall.png"],
+		width: 3000,
+		height: 100,
+		x: 0,
+		y: -1450,
+		layer: -1,
+		IsSolidTo: AlwaysReturnTrue
+	};
+	AddEntity(wallNorth);
+	
+	var wallWest =
+	{
+		Draw: TiledDraw2,
+		image: data["gfx/caveWall.png"],
+		width: 100,
+		height: 3000,
+		x: -1450,
+		y: 0,
+		layer: -1,
+		IsSolidTo: AlwaysReturnTrue
+	};
+	AddEntity(wallWest);
+	
+	var wallEast =
+	{
+		Draw: TiledDraw2,
+		image: data["gfx/caveWall.png"],
+		width: 100,
+		height: 3000,
+		x: 1450,
+		y: 0,
+		layer: -1,
+		IsSolidTo: AlwaysReturnTrue
+	};
+	AddEntity(wallEast);
 }
