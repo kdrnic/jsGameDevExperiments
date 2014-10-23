@@ -143,14 +143,16 @@ function DrawTiled2(image, x0, y0, width, height)
 			}
 			var _width = image.width;
 			var _height = image.height;
+			
 			if(x0 + width < _x + _width)
 			{
 				_width -= _x + _width - x0 - width;
 			}
-			if(x0 + width < _x + _width)
+			if(y0 + height < _y + _height)
 			{
-				_width -= _x + _width - x0 - width;
+				_height -= _y + _height - y0 - height;
 			}
+			
 			if(__x < 0) __x = 0; // Added on 28/04 to correct Firefox bug
 			if(__y < 0) __y = 0; // Added on 28/04 to correct Firefox bug
 			if(_width < 0) _width = 0; // Added on 28/04 to correct Firefox bug
