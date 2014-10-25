@@ -31,6 +31,8 @@ Jiggawatt.prototype.Update = function ()
 	this.x += dx;
 	this.y += dy;
 	AvoidSolids(this);
+	
+	if(health <= 0) this.alive = false;
 
 	CameraFocusOn(this);
 }
