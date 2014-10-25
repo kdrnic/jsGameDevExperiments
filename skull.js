@@ -14,7 +14,7 @@ function SkullProjectile()
 	this.targetHit = Player.prototype.Hit;
 	this.damage = 10;
 	
-	this.frameDeath = frame + 60;
+	this.frameDeath = frame + 320;
 }
 
 SkullProjectile.prototype = new Projectile();
