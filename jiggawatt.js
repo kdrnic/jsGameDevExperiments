@@ -5,7 +5,7 @@ function Jiggawatt()
 	this.x = this.y = 0;
 	this.width = this.height = 75;
 	this.image = data["gfx/jiggawattOfficial.jpg"];
-	this.speed = 5;
+	this.speed = 5 * 60;
 	this.health = 100;
 	this.alive = true;
 	
@@ -14,7 +14,7 @@ function Jiggawatt()
 
 Jiggawatt.prototype = new Player();
 
-Jiggawatt.prototype.Update = function ()
+Jiggawatt.prototype.Update = function (dt)
 {
 	var dx = 0, dy = 0;
 	if(keys["keyLeft"].state != 0) dx = -1;
@@ -28,8 +28,8 @@ Jiggawatt.prototype.Update = function ()
 		dy *= this.speed / dl;
 	}
 	
-	this.x += dx;
-	this.y += dy;
+	this.x += dx * dt;
+	this.y += dy * dt;
 	AvoidSolids(this);
 	
 	if(this.health <= 0) this.alive = false;

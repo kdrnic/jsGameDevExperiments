@@ -8,13 +8,13 @@ function SkullProjectile()
 	this.image = data["gfx/fireball.png"];
 	this.frameWidth = 20;
 	this.animLength = 10;
-	this.iAnimSpeed = 3;
+	this.iAnimSpeed = 3 / 60;
 	this.Draw = SpriteDraw2;
 	
 	this.targetHit = Player.prototype.Hit;
 	this.damage = 10;
 	
-	this.frameDeath = frame + 320;
+	this.lifeTime = 5.25;
 }
 
 SkullProjectile.prototype = new Projectile();
@@ -32,26 +32,18 @@ function Skull()
 	this.target = false;
 	this.shootAtX = this.shootAtY = 0;
 	this.counter1 = this.counter2 = 0;
-	this.shootSpeed = 7;
+	this.shootSpeed = 7 * 60;
 }
 
 Skull.prototype = new Enemy();
 
-Skull.prototype.Update = function()
+Skull.prototype.Update = function(dt)
 {
-	this.counter1++;
-	if(this.counter1 == 30)
+	this.counter1 += dt;
+	if(this.counter1 >= 0.5)
 	{
-		if(this.target)
-		{
-			this.shootAtX = this.target.x;
-			this.shootAtY = this.target.y;
-		}
-		else this.counter1 = 0;
-	}
-	if(this.counter1 > 30)
-	{
-		if(this.counter2 % 5 == 0)
+		this.counter2 += dt;
+		if(this.counter2 >= 0.1)
 		{
 			var dx = this.shootAtX - (this.x - 21);
 			var dy = this.shootAtY - (this.y - 10);
@@ -75,12 +67,25 @@ Skull.prototype.Update = function()
 			p.dx = dx;
 			p.dy = dy;
 			AddEntity(p);
+			this.counter2 = 0;
+			if(this.counter1 >= 0.8)
+			{
+				this.counter1 = this.counter2 = 0;
+			}
 		}
-		if(this.counter2 == 15)
+	}
+	else
+	{
+		if(this.target)
 		{
-			this.counter1 = this.counter2 = 0;
+			this.shootAtX = this.target.x;
+			this.shootAtY = this.target.y;
 		}
-		this.counter2++;
+		else
+		{
+			this.counter1 = 0;
+			this.counter2 = 0;
+		}
 	}
 	
 	if(!this.target)

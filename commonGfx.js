@@ -62,7 +62,7 @@ function SpriteDraw()
 
 function SpriteDraw2()
 {
-	this.frame = Math.floor(frame / this.iAnimSpeed) % this.animLength;
+	this.frame = Math.floor(gameTime / this.iAnimSpeed) % this.animLength;
 	DrawSprite(this);
 }
 

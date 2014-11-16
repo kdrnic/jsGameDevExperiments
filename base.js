@@ -3,10 +3,12 @@ var entities = [];
 var camera = {};
 var canvas;
 var context;
-var frame;
 var mouse = {};
 var preventDefault = false;
 var freeze;
+var TimeObject;
+var frameTime;
+var gameTime;
 
 function KeyDownEvent(event)
 {
@@ -45,12 +47,15 @@ function Start()
 	canvas.addEventListener("mousedown", MouseDownEvent);
 	canvas.addEventListener("mouseup", MouseUpEvent);
 	context = canvas.getContext("2d");
-	frame = 0;
 	camera.x = 0;
 	camera.y = 0;
 	StartLoadingData();
 	freeze = true;
-	setTimeout("DoFrame()", 1000.0 / 60.0);
+	gameTime = 0;
+	if(performance) TimeObject = performance;
+	else TimeObject = Date;
+	frameTime = TimeObject.now();
+	window.requestAnimationFrame(DoFrame);
 }
 
 function NewEntity()
@@ -95,27 +100,30 @@ function ClearEntities()
 
 function DoFrame()
 {
-	Update();
+	var newFrameTime = TimeObject.now();
+	var dt = newFrameTime - frameTime;
+	frameTime = newFrameTime;
+	dt /= 1000;
+	if(!freeze) gameTime += dt;
+	Update(dt);
 	Draw();
-	if(!freeze) frame++;
-	setTimeout("DoFrame()", 1000.0 / 60.0);
+	window.requestAnimationFrame(DoFrame);
 }
 
-function Update()
+function Update(dt)
 {
 	UpdateKeys();
-	if(!freeze) UpdateEntities();
+	if(!freeze) UpdateEntities(dt);
 }
 
-function UpdateEntities()
+function UpdateEntities(dt)
 {
 	for(var i = 0; i < entities.length; i++)
 	{
 		var entity = entities[i];
 		if(!entity.alive) continue;
-		if(entity.Update) entity.Update();
+		if(entity.Update) entity.Update(dt);
 	}
-	if(frame % 90 == 0) RemoveDeadEntities();
 }
 
 function Draw()
@@ -141,7 +149,7 @@ function CompareLayers(a, b)
 
 function DrawEntities()
 {
-	if(frame % 10 == 0) entities.sort(CompareLayers); // Sorts every 10 frames for greater speed
+	entities.sort(CompareLayers);
 	for(var i = 0; i < entities.length; i++)
 	{
 		var object = entities[i];

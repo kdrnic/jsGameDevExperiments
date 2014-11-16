@@ -2,7 +2,7 @@ function Entrance()
 {
 }
 
-Entrance.prototype.Update = function()
+Entrance.prototype.Update = function(dt)
 {
 	for(var i = 0; i < entities.length; i++)
 	{
