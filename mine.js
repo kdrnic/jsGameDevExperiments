@@ -38,6 +38,11 @@ function SpawnMine()
 		AddEntity(rock);
 	}
 	
+	var m = new MineExit();
+	m.x = 1450 - Math.random() * 2900;
+	m.y = 1450 - Math.random() * 2900;
+	AddEntity(m);
+	
 	var wallSouth =
 	{
 		Draw: TiledDraw2,
@@ -89,6 +94,9 @@ function SpawnMine()
 		IsSolidTo: AlwaysReturnTrue
 	};
 	AddEntity(wallEast);
+	
+	this.roomWidth = 3000;
+	this.roomHeight = 3000;
 }
 
 dataSrcs.push("gfx/mineEntrance.png");
@@ -107,3 +115,21 @@ function MineEntrance()
 MineEntrance.prototype = new Entrance();
 
 MineEntrance.prototype.SpawnWorld = SpawnMine;
+
+dataSrcs.push("gfx/mineExit2.png");
+
+function MineExit()
+{
+	this.x = 0;
+	this.y = 0;
+	this.width = 85;
+	this.height = 70;
+	this.offsetY = 15;
+	this.image = data["gfx/mineExit2.png"];
+	
+	this.Draw = ImageDraw;
+}
+
+MineExit.prototype = new Entrance();
+
+MineExit.prototype.SpawnWorld = SpawnWoods;

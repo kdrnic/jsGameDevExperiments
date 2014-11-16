@@ -1,10 +1,5 @@
 // Array of strings containing the URLs for each data to be preloaded
-var dataSrcs =
-[
-	"gfx/grass1.png",
-	"gfx/grass2.jpg",
-	"gfx/grass3.jpg"
-];
+var dataSrcs = [];
 var data = {};
 
 function StartLoadingData()

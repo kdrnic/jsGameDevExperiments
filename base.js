@@ -140,8 +140,20 @@ function CompareLayers(a, b)
 	{
 		if((a.y) && (a.height))
 		{
-			if(a.y + a.height * 0.5 < b.y + b.zHeight * 0.5) layerB = b.zBottomLayer;
+			var aY = a.y + a.height * 0.5;
+			if(a.offsetY) aY += a.offsetY;
+			if(aY < b.y + b.zHeight * 0.5) layerB = b.zBottomLayer;
 			else layerB = b.zTopLayer;
+		}
+	}
+	if(a.zSorting)
+	{
+		if((b.y) && (b.height))
+		{
+			var bY = b.y + b.height * 0.5;
+			if(b.offsetY) bY += b.offsetY;
+			if(bY < a.y + a.zHeight * 0.5) layerA = A.zBottomLayer;
+			else layerA = a.zTopLayer;
 		}
 	}
 	return layerA - layerB;
