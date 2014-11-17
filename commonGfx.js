@@ -171,3 +171,23 @@ function TiledDraw2()
 {
 	DrawTiled2(this.image, this.x - this.width * 0.5, this.y - this.height * 0.5, this.width, this.height);
 }
+
+function TileMapDraw()
+{
+	this.tileSize = 128;
+	context.save();
+	context.translate(this.x - camera.x, this.y - camera.y);
+	for(var c = 0; c < this.tiles.length; c++)
+	{
+		//if(this.x + (c + 1) * this.tileSize < camera.x) continue;
+		//if(this.x + c * this.tileSize > camera.x + canvas.width) break;
+		for(var r = 0; r < this.tiles[c].length; r++)
+		{
+			//if(this.y + (r + 1) * this.tileSize < camera.y) continue;
+			//if(this.y + r * this.tileSize > camera.y + canvas.height) break;
+			if(this.tiles[c][r] < 0) continue;
+			context.drawImage(this.tileset[this.tiles[c][r]], c * this.tileSize, r * this.tileSize);
+		}
+	}
+	context.restore();
+}

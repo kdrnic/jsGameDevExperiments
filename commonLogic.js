@@ -170,3 +170,93 @@ function BackAndForthUpdate()
 		else this.y += this.dy;
 	}
 }
+
+// tileName: tile filename string where %U, %R, %D and %L can be replaced by 0 or 1
+function AutoTileNames(tileName)
+{
+	var autoMap =
+	{
+		tiles: [],
+		tileset: [],
+		x: 0,
+		y: 0
+	};
+	
+	for(var u = 0; u < 2; u++)
+	{
+		for(var r = 0; r < 2; r++)
+		{
+			for(var d = 0; d < 2; d++)
+			{
+				for(var l = 0; l < 2; l++)
+				{
+					autoMap.tileset.push(tileName.replace("%U", u).replace("%R", r).replace("%D", d).replace("%L", l));
+				}
+			}
+		}
+	}
+	
+	return autoMap.tileset;
+}
+
+// tileName: tile filename string where %U, %R, %D and %L can be replaced by 0 or 1
+function AutoTileSet(tileName)
+{
+	var autoMap =
+	{
+		tiles: [],
+		tileset: [],
+		x: 0,
+		y: 0
+	};
+	
+	for(var u = 0; u < 2; u++)
+	{
+		for(var r = 0; r < 2; r++)
+		{
+			for(var d = 0; d < 2; d++)
+			{
+				for(var l = 0; l < 2; l++)
+				{
+					autoMap.tileset.push(data[tileName.replace("%U", u).replace("%R", r).replace("%D", d).replace("%L", l)]);
+				}
+			}
+		}
+	}
+	
+	return autoMap.tileset;
+}
+
+// binMap: 2D matrix of booleans
+function AutoTileMap(binMap)
+{
+	var autoMap =
+	{
+		tiles: [],
+		tileset: [],
+		x: 0,
+		y: 0
+	};
+	
+	for(var c = 0; c < binMap.length; c++)
+	{
+		autoMap.tiles[c] = [];
+		for(var r = 0; r < binMap[c].length; r++)
+		{
+			if(binMap[c][r] == false)
+			{
+				autoMap.tiles[c][r] = -1;
+				continue;
+			}
+			
+			var up =	(r > 0 						? binMap[c][r - 1] : false) ? 1 : 0;
+			var right =	(c < binMap.length - 1		? binMap[c + 1][r] : false) ? 1 : 0;
+			var down =	(r < binMap[c].length - 1	? binMap[c][r + 1] : false) ? 1 : 0;
+			var left =	(c > 0						? binMap[c - 1][r] : false) ? 1 : 0;
+			
+			autoMap.tiles[c][r] = (up * 8) + (right * 4) + (down * 2) + left;
+		}
+	}
+	
+	return autoMap.tiles;
+}
