@@ -4,16 +4,6 @@ function Collision(a, b)
 	return false;
 }
 
-function InitParallax(img, speed)
-{
-	var obj = NewEntity();
-	obj.image = img;
-	obj.speed = speed;
-	obj.Update = false;
-	obj.Draw = ParallaxDraw;
-	return obj;
-}
-
 function Parallax(img, spd)
 {
 	this.image = img;
@@ -87,25 +77,25 @@ function ApplyFriction(object, xCoefficient, yCoefficient)
 	else object.ySpeed = 0;
 }
 
-function DoPlatformerPhysics(object)
+function PlatformerPhysicsUpdate()
 {
-	object.ySpeed += gravity;
-	if(object.colliders[1])
+	this.ySpeed += gravity;
+	if(this.colliders[1])
 	{
-		object.oldX = object.x;
-		object.oldY = object.y;
-		if(object.colliders[1].dx) object.x += object.colliders[1].dx;
-		if(object.colliders[1].dy) object.y += object.colliders[1].dy;
-		AvoidSolids(object);
+		this.oldX = this.x;
+		this.oldY = this.y;
+		if(this.colliders[1].dx) this.x += this.colliders[1].dx;
+		if(this.colliders[1].dy) this.y += this.colliders[1].dy;
+		AvoidSolids(this);
 	}
-	ApplyFriction(object);
-	object.oldX = object.x;
-	object.oldY = object.y;
-	object.x += object.xSpeed;
-	object.y += object.ySpeed;
-	object.colliders = AvoidSolids(object);
-	object.xSpeed = object.x - object.oldX;
-	object.ySpeed = object.y - object.oldY;
+	ApplyFriction(this);
+	this.oldX = this.x;
+	this.oldY = this.y;
+	this.x += this.xSpeed;
+	this.y += this.ySpeed;
+	this.colliders = AvoidSolids(this);
+	this.xSpeed = this.x - this.oldX;
+	this.ySpeed = this.y - this.oldY;
 }
 
 function AlwaysReturnTrue(useless)
@@ -117,11 +107,6 @@ function CameraFocusOn(obj)
 {
 	camera.x = obj.x - canvas.width * 0.5;
 	camera.y = obj.y - canvas.height * 0.5;
-}
-
-function PlatformerUpdate()
-{
-	DoPlatformerPhysics(this);
 }
 
 function IsVisible(obj)

@@ -1,136 +1,110 @@
-function DrawBox(obj)
+function BoxDraw()
 {
 	context.save();
 	context.translate(-camera.x, -camera.y);
 	context.strokeStyle = "#000000";
-	context.strokeRect(obj.x - obj.width / 2, obj.y - obj.height / 2, obj.width, obj.height);
-	context.restore();
-}
-
-function BoxDraw()
-{
-	DrawBox(this);
-}
-
-function DrawImage(obj)
-{
-	context.save();
-	context.translate(obj.x - camera.x, obj.y - camera.y);
-	if(obj.flipH) context.scale(-1, 1);
-	if(obj.flipV) context.scale(1, -1);
-	if(obj.offsetX) context.translate(-obj.offsetX, 0);
-	if(obj.offsetY) context.translate(0, -obj.offsetY);
-	context.drawImage(obj.image, 0 - obj.image.width / 2, 0 - obj.image.height / 2);
+	context.strokeRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
 	context.restore();
 }
 
 function ImageDraw()
 {
-	DrawImage(this);
-}
-
-function DrawRotating(obj)
-{
 	context.save();
-	context.translate(obj.x - camera.x, obj.y - camera.y);
-	context.rotate(frame * obj.rotationSpeed);
-	context.drawImage(obj.image, 0 - obj.image.width / 2, 0 - obj.image.height / 2);
+	context.translate(this.x - camera.x, this.y - camera.y);
+	if(this.flipH) context.scale(-1, 1);
+	if(this.flipV) context.scale(1, -1);
+	if(this.offsetX) context.translate(-this.offsetX, 0);
+	if(this.offsetY) context.translate(0, -this.offsetY);
+	context.drawImage(this.image, 0 - this.image.width / 2, 0 - this.image.height / 2);
 	context.restore();
 }
 
 function RotatingDraw()
 {
-	DrawRotating(this);
-}
-
-function DrawSprite(obj)
-{
 	context.save();
-	context.translate(obj.x - camera.x, obj.y - camera.y);
-	if(obj.flipH) context.scale(-1, 1);
-	if(obj.flipV) context.scale(1, -1);
-	if(obj.offsetX) context.translate(-obj.offsetX, 0);
-	if(obj.offsetY) context.translate(0, -obj.offsetY);
-	context.drawImage(obj.image, obj.frame * obj.frameWidth, 0, obj.frameWidth, obj.image.height, 0 - (obj.frameWidth / 2), 0 - (obj.image.height / 2), obj.frameWidth, obj.image.height);
+	context.translate(this.x - camera.x, this.y - camera.y);
+	context.rotate(frame * this.rotationSpeed);
+	context.drawImage(this.image, 0 - this.image.width / 2, 0 - this.image.height / 2);
 	context.restore();
 }
 
 function SpriteDraw()
 {
-	DrawSprite(this);
+	context.save();
+	context.translate(this.x - camera.x, this.y - camera.y);
+	if(this.flipH) context.scale(-1, 1);
+	if(this.flipV) context.scale(1, -1);
+	if(this.offsetX) context.translate(-this.offsetX, 0);
+	if(this.offsetY) context.translate(0, -this.offsetY);
+	context.drawImage(this.image, this.frame * this.frameWidth, 0, this.frameWidth, this.image.height, 0 - (this.frameWidth / 2), 0 - (this.image.height / 2), this.frameWidth, this.image.height);
+	context.restore();
 }
 
 function SpriteDraw2()
 {
 	this.frame = Math.floor(gameTime / this.iAnimSpeed) % this.animLength;
-	DrawSprite(this);
+	SpriteDraw.call(this);
 }
 
-function DrawParallax(image, speed)
+function ParallaxDraw(image, speed)
 {
-	if(!speed) speed = 1.0;
+	if(!this.speed) this.speed = 1.0;
 	var scrollX = camera.x;
 	var scrollY = camera.y;
 	scrollX += canvas.width * 0.5;
 	scrollY += canvas.height * 0.5;
-	scrollX *= speed;
-	scrollY *= speed;
+	scrollX *= this.speed;
+	scrollY *= this.speed;
 	context.save();
 	context.translate(-scrollX, -scrollY);
-	for(var x = Math.floor(scrollX / image.width) * image.width; x < Math.ceil((scrollX + canvas.width) / image.width) * image.width; x += image.width)
+	for(var x = Math.floor(scrollX / this.image.width) * this.image.width; x < Math.ceil((scrollX + canvas.width) / this.image.width) * this.image.width; x += this.image.width)
 	{
-		for(var y = Math.floor(scrollY / image.height) * image.height; y < Math.ceil((scrollY + canvas.height) / image.height) * image.height; y += image.height)
+		for(var y = Math.floor(scrollY / this.image.height) * this.image.height; y < Math.ceil((scrollY + canvas.height) / this.image.height) * this.image.height; y += this.image.height)
 		{
-			context.drawImage(image, x, y);
+			context.drawImage(this.image, x, y);
 		}
-	}
-	context.restore();
-}
-
-function ParallaxDraw()
-{
-	DrawParallax(this.image, this.speed);
-}
-
-function DrawTiled(image, x0, y0, _width, _height)
-{
-	if(image.width == 0) return;
-	if(image.height == 0) return;
-	context.save();
-	context.translate(-camera.x, -camera.y);
-	var width = _width;
-	for(var x = x0; x < x0 + _width; x += image.width)
-	{
-		var height = _height;
-		for(var y = y0; y < y0 + _height; y += image.height)
-		{
-			context.drawImage(image, 0, 0, Math.min(image.width, width), Math.min(image.height, height), x, y, Math.min(image.width, width), Math.min(image.height, height));
-			height -= Math.min(image.height, height);
-		}
-		width -= Math.min(image.width, width);
 	}
 	context.restore();
 }
 
 function TiledDraw()
 {
-	DrawTiled(this.image, this.x - this.width * 0.5, this.y - this.height * 0.5, this.width, this.height);
-}
-
-function DrawTiled2(image, x0, y0, width, height)
-{
-	if(image.width == 0) return;
-	if(image.height == 0) return;
+	var x0 = this.x - this.width * 0.5;
+	var y0 = this.y - this.height * 0.5;
+	if(this.image.width == 0) return;
+	if(this.image.height == 0) return;
 	context.save();
 	context.translate(-camera.x, -camera.y);
-	for(var x = Math.floor(x0 / image.width) * image.width; x < Math.ceil((x0 + width) / image.width) * image.width; x += image.width)
+	var width = this.width;
+	for(var x = x0; x < x0 + this.width; x += this.image.width)
 	{
-		for(var y = Math.floor(y0 / image.height) * image.height; y < Math.ceil((y0 + height) / image.height) * image.height; y += image.height)
+		var height = this.height;
+		for(var y = y0; y < y0 + this.height; y += this.image.height)
 		{
-			var _x = x;	// where to draw on screen
-			var _y = y; // where to draw on screen
-			var __x = 0; // x on image from where blitting starts
-			var __y = 0; // y on image from where blitting starts
+			context.drawImage(this.image, 0, 0, Math.min(this.image.width, width), Math.min(this.image.height, height), x, y, Math.min(this.image.width, width), Math.min(this.image.height, height));
+			height -= Math.min(this.image.height, height);
+		}
+		width -= Math.min(this.image.width, width);
+	}
+	context.restore();
+}
+
+function TiledDraw2()
+{
+	var x0 = this.x - this.width * 0.5;
+	var y0 = this.y - this.height * 0.5;
+	if(this.image.width == 0) return;
+	if(this.image.height == 0) return;
+	context.save();
+	context.translate(-camera.x, -camera.y);
+	for(var x = Math.floor(x0 / this.image.width) * this.image.width; x < Math.ceil((x0 + this.width) / this.image.width) * this.image.width; x += this.image.width)
+	{
+		for(var y = Math.floor(y0 / this.image.height) * this.image.height; y < Math.ceil((y0 + this.height) / this.image.height) * this.image.height; y += this.image.height)
+		{
+			var _x = x;
+			var _y = y;
+			var __x = 0;
+			var __y = 0;
 			if(x0 > _x)
 			{
 				__x += x0 - _x;
@@ -141,35 +115,28 @@ function DrawTiled2(image, x0, y0, width, height)
 				__y += y0 - _y;
 				_y = y0;
 			}
-			var _width = image.width;
-			var _height = image.height;
-			
-			if(x0 + width < _x + _width)
+			var _width = this.image.width;
+			var _height = this.image.height;			
+			if(x0 + this.width < _x + _width)
 			{
-				_width -= _x + _width - x0 - width;
+				_width -= _x + _width - x0 - this.width;
 			}
-			if(y0 + height < _y + _height)
+			if(y0 + this.height < _y + _height)
 			{
-				_height -= _y + _height - y0 - height;
-			}
-			
-			if(__x < 0) __x = 0; // Added on 28/04 to correct Firefox bug
-			if(__y < 0) __y = 0; // Added on 28/04 to correct Firefox bug
-			if(_width < 0) _width = 0; // Added on 28/04 to correct Firefox bug
-			if(_width > image.width) _width = image.width; // Added on 28/04 to correct Firefox bug
-			if(_height < 0) _height = 0; // Added on 28/04 to correct Firefox bug
-			if(_height > image.height) _height = image.height; // Added on 28/04 to correct Firefox bug
-			if(_width == 0) continue; // Added on 28/04 to correct Firefox bug
-			if(_height == 0) continue; // Added on 28/04 to correct Firefox bug
-			context.drawImage(image, __x, __y, _width, _height, _x, _y, _width, _height);
+				_height -= _y + _height - y0 - this.height;
+			}			
+			if(__x < 0) __x = 0;
+			if(__y < 0) __y = 0;
+			if(_width < 0) _width = 0;
+			if(_width > this.image.width) _width = this.image.width;
+			if(_height < 0) _height = 0;
+			if(_height > this.image.height) _height = this.image.height;
+			if(_width == 0) continue;
+			if(_height == 0) continue;
+			context.drawImage(this.image, __x, __y, _width, _height, _x, _y, _width, _height);
 		}
 	}
 	context.restore();
-}
-
-function TiledDraw2()
-{
-	DrawTiled2(this.image, this.x - this.width * 0.5, this.y - this.height * 0.5, this.width, this.height);
 }
 
 function TileMapDraw()
@@ -179,12 +146,12 @@ function TileMapDraw()
 	context.translate(this.x - camera.x, this.y - camera.y);
 	for(var c = 0; c < this.tiles.length; c++)
 	{
-		//if(this.x + (c + 1) * this.tileSize < camera.x) continue;
-		//if(this.x + c * this.tileSize > camera.x + canvas.width) break;
+		if(this.x + (c + 1) * this.tileSize < camera.x) continue;
+		if(this.x + c * this.tileSize > camera.x + canvas.width) break;
 		for(var r = 0; r < this.tiles[c].length; r++)
 		{
-			//if(this.y + (r + 1) * this.tileSize < camera.y) continue;
-			//if(this.y + r * this.tileSize > camera.y + canvas.height) break;
+			if(this.y + (r + 1) * this.tileSize < camera.y) continue;
+			if(this.y + r * this.tileSize > camera.y + canvas.height) break;
 			if(this.tiles[c][r] < 0) continue;
 			context.drawImage(this.tileset[this.tiles[c][r]], c * this.tileSize, r * this.tileSize);
 		}
