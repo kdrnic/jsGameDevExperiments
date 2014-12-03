@@ -87,10 +87,10 @@ function SpawnVillage()
 		while(obi == i) obi = Math.floor(boxes.length * Math.random());
 		var ob = boxes[obi];
 		
-		var sx = b.x + 1;
-		var sy = b.y + 1;
-		var ex = ob.x + 1;
-		var ey = ob.y + 1;
+		var sx = b.x + 1 + (i % 2);
+		var sy = b.y + 1 + (i % 2);
+		var ex = ob.x + 1 + (obi % 2);
+		var ey = ob.y + 1 + (obi % 2);
 		var xFirst = Math.random() < 0.5 ? true : false;
 		
 		while((sx != ex) || (sy != ey))
